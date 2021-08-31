@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9a435072cf91451a9b8908e97e596c97" Name="Diagram1">
+        <EntityTypeShape EntityType="TradingCardCompanyModel.Register" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TradingCardCompanyModel.CardDetail" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="TradingCardCompanyModel.Order" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TradingCardCompanyModel.Checkout" Width="1.5" PointX="8.25" PointY="0.75" />
+        <AssociationConnector Association="TradingCardCompanyModel.FK_UserId" />
+        <EntityTypeShape EntityType="TradingCardCompanyModel.OrderDetail" Width="1.5" PointX="5.625" PointY="0.75" />
+        <AssociationConnector Association="TradingCardCompanyModel.FK_Order" />
+        <AssociationConnector Association="TradingCardCompanyModel.FK__Checkout__OrderD__3C69FB99" />
+        <AssociationConnector Association="TradingCardCompanyModel.FK_OrderdetailsUser" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

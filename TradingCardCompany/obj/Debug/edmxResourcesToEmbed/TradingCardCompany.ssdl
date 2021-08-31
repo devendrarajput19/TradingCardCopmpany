@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TradingCardCompanyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="CardDetails">
+    <Key>
+      <PropertyRef Name="CardID" />
+    </Key>
+    <Property Name="CardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CardName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Price" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="FrontImage" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BackImage" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="InsertedDate" Type="date" />
+  </EntityType>
+  <EntityType Name="Checkout">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderDetailId" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="EmailID" Type="varchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderDetails">
+    <Key>
+      <PropertyRef Name="OrderDetailId" />
+    </Key>
+    <Property Name="OrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="CardId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="varchar" MaxLength="50" />
+    <Property Name="Price" Type="varchar" MaxLength="50" />
+    <Property Name="Total" Type="varchar" MaxLength="50" />
+    <Property Name="CardName" Type="varchar" MaxLength="50" />
+    <Property Name="UserId" Type="int" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderNumber" Type="int" Nullable="false" />
+    <Property Name="OrderDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Register">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="ConfirmPassword" Type="varchar" MaxLength="255" Nullable="false" />
+    <Property Name="City" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK__Checkout__OrderD__3C69FB99">
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="1" />
+    <End Role="Checkout" Type="Self.Checkout" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderDetails">
+        <PropertyRef Name="OrderDetailId" />
+      </Principal>
+      <Dependent Role="Checkout">
+        <PropertyRef Name="OrderDetailId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order">
+    <End Role="CardDetails" Type="Self.CardDetails" Multiplicity="1" />
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CardDetails">
+        <PropertyRef Name="CardID" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="CardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderdetailsUser">
+    <End Role="Register" Type="Self.Register" Multiplicity="0..1" />
+    <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Register">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserId">
+    <End Role="Register" Type="Self.Register" Multiplicity="1" />
+    <End Role="Checkout" Type="Self.Checkout" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Register">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Checkout">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TradingCardCompanyModelStoreContainer">
+    <EntitySet Name="CardDetails" EntityType="Self.CardDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Checkout" EntityType="Self.Checkout" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Register" EntityType="Self.Register" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Checkout__OrderD__3C69FB99" Association="Self.FK__Checkout__OrderD__3C69FB99">
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+      <End Role="Checkout" EntitySet="Checkout" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order" Association="Self.FK_Order">
+      <End Role="CardDetails" EntitySet="CardDetails" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderdetailsUser" Association="Self.FK_OrderdetailsUser">
+      <End Role="Register" EntitySet="Register" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserId" Association="Self.FK_UserId">
+      <End Role="Register" EntitySet="Register" />
+      <End Role="Checkout" EntitySet="Checkout" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

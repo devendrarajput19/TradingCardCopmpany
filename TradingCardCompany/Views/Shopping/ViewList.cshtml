@@ -1,0 +1,80 @@
+﻿@model IEnumerable<TradingCardCompany.CardDetail>
+
+
+@*<script>
+
+        function flipImageFunction() {
+            var img = document.getElementById("Frontimagepath");
+            var hiddenimg = document.getElementById("Backimagepath");
+
+            var cardId = document.getElementById("cardID");
+
+
+            if (img.src == img.src)
+                document.getElementById("Frontimagepath").src = hiddenimg.src;
+            else
+                document.getElementById("Frontimagepath").src = img.src;
+        }
+
+    </script>*@
+
+    <div class="container">
+        <h2 class="text-center">Product List</h2>
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4" style="margin-bottom: 30px;">
+                <div class="thumbnail">
+                    <div class="image" style="margin: 20px;">
+
+                        <input class="Backimagepath"
+                               name="Backimagepath"
+                               type="hidden"
+                               src="@Url.Content(item.FrontImage)" />
+
+                        <input class="Backimagepath"
+                               name="Backimagepath"
+                               type="hidden"
+                               src="@Url.Content(item.BackImage)" />
+
+                        <input id="cardID"
+                               name="cardID"
+                               type="hidden"
+                               value=@item.CardID />
+
+                        @*<input id="Frontimagepath" name="Frontimagepath" type="hidden" src="@Url.Content(item.FrontImage)" />*@
+
+                        <img class="img-responsive" id="Frontimagepath" name="Frontimagepath" src=@Url.Content(item.FrontImage) height="200px" width="280px" />
+
+                    </div>
+                    <div class="table-condensed" style="text-align: center">
+                        <table style="width: 100%">
+                            <tr>
+                                <td><h4>@item.CardName</h4></td>
+                                <td><h4>Price : @item.Price</h4></td>
+                            </tr>
+                            <br />
+                        </table>
+
+                        <p>@item.Description</p>
+                        <div style="width: 100%">
+                            <table style="width: 100%">
+
+                                    <td style="padding: 5px;"><input type="submit" value="Flip Image" class="btn btn-default" /></td>
+                              
+                                    @using (Html.BeginForm("AddtoCart", "Shopping", new { cardid = item.CardID }, FormMethod.Post))
+                                    {
+                                        <td style="padding: 5px;"><input type="submit" value="Add to Cart" class="btn btn-default" /></td>
+                                    }
+                                </table>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+

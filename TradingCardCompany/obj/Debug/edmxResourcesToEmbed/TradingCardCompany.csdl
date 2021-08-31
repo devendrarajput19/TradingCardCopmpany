@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TradingCardCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Register">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ConfirmPassword" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Checkouts" Relationship="TradingCardCompanyModel.FK_UserId" FromRole="Register" ToRole="Checkout" />
+    <NavigationProperty Name="OrderDetails" Relationship="TradingCardCompanyModel.FK_OrderdetailsUser" FromRole="Register" ToRole="OrderDetail" />
+  </EntityType>
+  <EntityContainer Name="TradingCardCompanyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Registers" EntityType="Self.Register" />
+    <EntitySet Name="CardDetails" EntityType="TradingCardCompanyModel.CardDetail" />
+    <EntitySet Name="Orders" EntityType="TradingCardCompanyModel.Order" />
+    <EntitySet Name="Checkouts" EntityType="TradingCardCompanyModel.Checkout" />
+    <AssociationSet Name="FK_UserId" Association="TradingCardCompanyModel.FK_UserId">
+      <End Role="Register" EntitySet="Registers" />
+      <End Role="Checkout" EntitySet="Checkouts" />
+    </AssociationSet>
+    <EntitySet Name="OrderDetails" EntityType="TradingCardCompanyModel.OrderDetail" />
+    <AssociationSet Name="FK_Order" Association="TradingCardCompanyModel.FK_Order">
+      <End Role="CardDetail" EntitySet="CardDetails" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Checkout__OrderD__3C69FB99" Association="TradingCardCompanyModel.FK__Checkout__OrderD__3C69FB99">
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+      <End Role="Checkout" EntitySet="Checkouts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderdetailsUser" Association="TradingCardCompanyModel.FK_OrderdetailsUser">
+      <End Role="Register" EntitySet="Registers" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="CardDetail">
+    <Key>
+      <PropertyRef Name="CardID" />
+    </Key>
+    <Property Name="CardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CardName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FrontImage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BackImage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InsertedDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="OrderDetails" Relationship="TradingCardCompanyModel.FK_Order" FromRole="CardDetail" ToRole="OrderDetail" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderNumber" Type="Int32" Nullable="false" />
+    <Property Name="OrderDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Checkout">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDetailId" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EmailID" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Register" Relationship="TradingCardCompanyModel.FK_UserId" FromRole="Checkout" ToRole="Register" />
+    <NavigationProperty Name="OrderDetail" Relationship="TradingCardCompanyModel.FK__Checkout__OrderD__3C69FB99" FromRole="Checkout" ToRole="OrderDetail" />
+  </EntityType>
+  <Association Name="FK_UserId">
+    <End Type="TradingCardCompanyModel.Register" Role="Register" Multiplicity="1" />
+    <End Type="TradingCardCompanyModel.Checkout" Role="Checkout" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Register">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Checkout">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailId" />
+    </Key>
+    <Property Name="OrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="CardId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Total" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CardName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" />
+    <NavigationProperty Name="CardDetail" Relationship="TradingCardCompanyModel.FK_Order" FromRole="OrderDetail" ToRole="CardDetail" />
+    <NavigationProperty Name="Checkouts" Relationship="TradingCardCompanyModel.FK__Checkout__OrderD__3C69FB99" FromRole="OrderDetail" ToRole="Checkout" />
+    <NavigationProperty Name="Register" Relationship="TradingCardCompanyModel.FK_OrderdetailsUser" FromRole="OrderDetail" ToRole="Register" />
+  </EntityType>
+  <Association Name="FK_Order">
+    <End Type="TradingCardCompanyModel.CardDetail" Role="CardDetail" Multiplicity="1" />
+    <End Type="TradingCardCompanyModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CardDetail">
+        <PropertyRef Name="CardID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="CardId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Checkout__OrderD__3C69FB99">
+    <End Type="TradingCardCompanyModel.OrderDetail" Role="OrderDetail" Multiplicity="1" />
+    <End Type="TradingCardCompanyModel.Checkout" Role="Checkout" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderDetail">
+        <PropertyRef Name="OrderDetailId" />
+      </Principal>
+      <Dependent Role="Checkout">
+        <PropertyRef Name="OrderDetailId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderdetailsUser">
+    <End Type="TradingCardCompanyModel.Register" Role="Register" Multiplicity="0..1" />
+    <End Type="TradingCardCompanyModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Register">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

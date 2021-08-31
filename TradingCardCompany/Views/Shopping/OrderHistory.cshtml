@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TradingCardCompany.OrderDetail>
+
+<h3>Order History</h3>
+
+@if (Model != null)
+{
+    <table class="table-condensed" style="width: 100%">
+
+        <tr style="padding-bottom: 20px;">
+            <th>OrderID</th>
+            <th>Card Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.OrderID
+                </td>
+                <td>
+                    @item.CardName
+                </td>
+                <td>
+                    @item.Quantity
+                </td>
+                <td>
+                    @item.Price
+                </td>
+                <td>
+                    @item.Total
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+else
+{
+    <h2> There's no history. Please go to Home page.</h2>
+    
+}
+<p>
+    @Html.ActionLink("Back to List", "ViewList")
+</p>
+
+
+
+

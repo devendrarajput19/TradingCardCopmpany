@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingCardCompany", "TradingCardCompany\TradingCardCompany.csproj", "{B738C842-C7D1-4710-8D7D-5F2BBBA3E5C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradingCardCompany.Tests", "TradingCardCompany.Tests\TradingCardCompany.Tests.csproj", "{E474A1F5-33B4-421A-A8DD-340A9377772C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B738C842-C7D1-4710-8D7D-5F2BBBA3E5C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B738C842-C7D1-4710-8D7D-5F2BBBA3E5C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B738C842-C7D1-4710-8D7D-5F2BBBA3E5C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B738C842-C7D1-4710-8D7D-5F2BBBA3E5C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E474A1F5-33B4-421A-A8DD-340A9377772C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E474A1F5-33B4-421A-A8DD-340A9377772C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E474A1F5-33B4-421A-A8DD-340A9377772C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E474A1F5-33B4-421A-A8DD-340A9377772C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {109A1560-6D14-4187-95CD-69AA311E26AC}
+	EndGlobalSection
+EndGlobal

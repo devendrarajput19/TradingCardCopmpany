@@ -1,0 +1,21 @@
+﻿@model TradingCardCompany.CardDetail
+
+<div>
+    <h4>CardDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.BackImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BackImage)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
